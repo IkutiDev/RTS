@@ -5,7 +5,7 @@
 [Bb]uilds/
 Assets/Prototyping/
 Assets/AssetStoreTools*
-#[Repo Name Here]/Assets/[AssetPacks or whatever folder you want to hide from github]
+RTS/Assets/AssetPacks/
 # Visual Studio cache directory
 .vs/
 
