@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7700756679652851354}
   - component: {fileID: 5474568238292361340}
   - component: {fileID: 4667914677507972429}
+  - component: {fileID: 2170053567175870536}
+  - component: {fileID: 8435069687048226168}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -107,6 +109,63 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   navMeshAgent: {fileID: 5474568238292361340}
+--- !u!114 &2170053567175870536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2878254143387323661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c83760900abcf4593229f23344c184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  onSelected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1354312131321028297}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onDeselected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1354312131321028297}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!65 &8435069687048226168
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2878254143387323661}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.6073298, y: 1.5684541, z: 2.6754718}
+  m_Center: {x: -0.019966304, y: 0.8842271, z: 0.18380237}
 --- !u!1 &8547229168224680977
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +177,7 @@ GameObject:
   - component: {fileID: 7374428984493457832}
   - component: {fileID: 1354312131321028297}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: SelectedHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
