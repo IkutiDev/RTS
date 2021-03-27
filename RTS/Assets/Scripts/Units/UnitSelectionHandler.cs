@@ -3,53 +3,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
-public class UnitSelectionHandler : MonoBehaviour
+namespace RTS.Units
 {
-    [SerializeField] LayerMask layerMask;
-    private Camera mainCamera;
-
-    private List<Unit> selectedUnits = new List<Unit>();
-
-    private void Start()
+    public class UnitSelectionHandler : MonoBehaviour
     {
-        mainCamera = Camera.main;
-    }
+        [SerializeField] LayerMask layerMask;
+        private Camera mainCamera;
 
-    private void Update()
-    {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        public List<Unit> selectedUnits { get; } = new List<Unit>();
+
+        private void Start()
         {
-            StartSelectionArea();
+            mainCamera = Camera.main;
         }
-        else if (Mouse.current.leftButton.wasReleasedThisFrame)
+
+        private void Update()
         {
-            ClearSelectionArea();
+            if (Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                StartSelectionArea();
+            }
+            else if (Mouse.current.leftButton.wasReleasedThisFrame)
+            {
+                ClearSelectionArea();
+            }
         }
-    }
-    private void StartSelectionArea()
-    {
-        foreach(var selectedUnit in selectedUnits)
+        private void StartSelectionArea()
         {
-            selectedUnit.Deselect();
+            foreach (var selectedUnit in selectedUnits)
+            {
+                selectedUnit.Deselect();
+            }
+            selectedUnits.Clear();
         }
-        selectedUnits.Clear();
-    }
-    private void ClearSelectionArea()
-    {
-        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-        if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask)) return;
-
-        if (!hit.collider.TryGetComponent(out Unit unit)) return;
-
-        if (!unit.hasAuthority) return;
-
-        selectedUnits.Add(unit);
-
-        foreach(var selectedUnit in selectedUnits)
+        private void ClearSelectionArea()
         {
-            selectedUnit.Select();
+            Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+            if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask)) return;
+
+            if (!hit.collider.TryGetComponent(out Unit unit)) return;
+
+            if (!unit.hasAuthority) return;
+
+            selectedUnits.Add(unit);
+
+            foreach (var selectedUnit in selectedUnits)
+            {
+                selectedUnit.Select();
+            }
         }
     }
 }
