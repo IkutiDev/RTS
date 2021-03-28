@@ -8,13 +8,26 @@ namespace RTS.Units
     public class UnitMovement : NetworkBehaviour
     {
         [SerializeField] private NavMeshAgent navMeshAgent = null;
+        [SerializeField] private Targeter targeter = null;
 
         private Camera mainCamera;
         private NavMeshHit hit;
         #region Server
+        [ServerCallback]
+        private void Update()
+        {
+            if (!navMeshAgent.hasPath) return;
+
+            if (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance) return;
+
+            navMeshAgent.ResetPath();
+        }
+
         [Command]
         public void CmdMove(Vector3 position)
         {
+            targeter.ClearTarget();
+
             if (!ValidatePosition(position)) { return; }
             navMeshAgent.SetDestination(hit.position);
         }

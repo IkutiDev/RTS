@@ -7,6 +7,11 @@ namespace RTS.Networking {
     public class RTSPlayer : NetworkBehaviour
     {
         [SerializeField] private List<Unit> myUnits = new List<Unit>();
+
+        public List<Unit> GetMyUnits()
+        {
+            return myUnits;
+        }
         #region Server
         public override void OnStartServer()
         {
@@ -35,13 +40,13 @@ namespace RTS.Networking {
         public override void OnStartClient()
         {
             if (!isClientOnly) return;
-            Unit.AuthorityOnUnitDespawned += AuthorityHandlerUnitSpawned;
+            Unit.AuthorityOnUnitSpawned += AuthorityHandlerUnitSpawned;
             Unit.AuthorityOnUnitDespawned += AuthorityHandlerUnitDespawned;
         }
         public override void OnStopClient()
         {
             if (!isClientOnly) return;
-            Unit.AuthorityOnUnitDespawned -= AuthorityHandlerUnitSpawned;
+            Unit.AuthorityOnUnitSpawned -= AuthorityHandlerUnitSpawned;
             Unit.AuthorityOnUnitDespawned -= AuthorityHandlerUnitDespawned;
         }
         private void AuthorityHandlerUnitSpawned(Unit unit)
