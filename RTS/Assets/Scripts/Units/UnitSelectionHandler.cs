@@ -87,11 +87,15 @@ namespace RTS.Units
 
                 if (!unit.hasAuthority) return;
 
-                selectedUnits.Add(unit);
-
-                foreach (var selectedUnit in selectedUnits)
+                if (selectedUnits.Contains(unit))
                 {
-                    selectedUnit.Select();
+                    selectedUnits.Remove(unit);
+                    unit.Deselect();
+                }
+                else
+                {
+                    selectedUnits.Add(unit);
+                    unit.Select();
                 }
                 return;
             }

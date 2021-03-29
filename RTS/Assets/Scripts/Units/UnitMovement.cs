@@ -9,6 +9,7 @@ namespace RTS.Units
     {
         [SerializeField] private NavMeshAgent navMeshAgent = null;
         [SerializeField] private Targeter targeter = null;
+        [SerializeField] private float chaseRange = 10f;
 
         private Camera mainCamera;
         private NavMeshHit hit;
@@ -16,6 +17,21 @@ namespace RTS.Units
         [ServerCallback]
         private void Update()
         {
+            Targetable target = targeter.GetTarget();
+            if (target != null)
+            {
+                if ((target.transform.position - transform.position).sqrMagnitude > chaseRange*chaseRange)
+                {
+                    navMeshAgent.SetDestination(target.transform.position);
+                }
+                else if (navMeshAgent.hasPath)
+                {
+                    navMeshAgent.ResetPath();
+                }
+
+                return;
+            }
+
             if (!navMeshAgent.hasPath) return;
 
             if (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance) return;
